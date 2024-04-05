@@ -1,0 +1,69 @@
+<div class="container-fluid pb-4 mt-4 sticky-top bg-white">
+  <h1>Hey Boss, what's my task for the day?</h1>
+  <div>
+    <div class="d-inline-block mx-2">
+      <a [routerLink]="['/completed']" class="btn btn-primary"
+        >See how much we've accomplished!</a
+      >
+    </div>
+    <div class="d-inline-block mx-2">
+      <a [routerLink]="['/notCompleted']" class="btn btn-primary"
+        >What's left?</a
+      >
+    </div>
+    <div class="d-inline-block mx-2">
+      <a [routerLink]="['/users']" class="btn btn-primary">By User</a>
+    </div>
+    <div class="d-inline-block mx-2">
+      <a [routerLink]="['/']" class="btn btn-primary">See all</a>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-start">
+        <input
+          type="text"
+          name="searchUserName"
+          class="form-control w-50"
+          placeholder="Inserisci il tuo nome..."
+          [(ngModel)]="searchUserName"
+          (input)="searchTodos()"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="col-12">
+      <ng-container *ngFor="let todo of filteredTodos">
+        <div
+          class="row mb-2 rounded-4"
+          [ngStyle]="{
+            'background-color': todo.completed ? '#98f49e' : '#f47474'
+          }"
+        >
+          <div class="col-2 p-3">
+            <div class="h-100 d-flex justify-content-center align-items-center">
+              <input
+                type="checkbox"
+                [checked]="todo.completed"
+                (change)="updateTodoStatus(todo)"
+              />
+            </div>
+          </div>
+          <div class="col-10 p-2">
+            <div class="row h-100 d-flex align-items-center">
+              <h4 class="col-12 m-0">{{ todo.todo }}</h4>
+              <p class="col-12 m-0">
+                Assigned to: {{ getUserById(todo.userId)?.firstName }}
+                {{ getUserById(todo.userId)?.lastName }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

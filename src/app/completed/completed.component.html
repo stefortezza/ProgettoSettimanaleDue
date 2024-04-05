@@ -1,0 +1,44 @@
+<div class="container-fluid  pb-4 mt-4 sticky-top bg-white">
+  <h1>Hey Boss, what's my task for the day?</h1>
+  <div>
+    <div class="d-inline-block mx-2">
+      <a [routerLink]="['/completed']" class="btn btn-primary"
+        >See how much we've accomplished!</a
+      >
+    </div>
+    <div class="d-inline-block mx-2">
+      <a [routerLink]="['/notCompleted']" class="btn btn-primary">
+        What's left?
+      </a>
+    </div>
+    <div class="d-inline-block mx-2">
+      <a [routerLink]="['/users']" class="btn btn-primary"> By User </a>
+    </div>
+    <div class="d-inline-block mx-2">
+      <a [routerLink]="['/']" class="btn btn-primary"> See all </a>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt-4">
+  <div class="row">
+    <ng-container *ngFor="let todo of todos; let i = index">
+      <div class="col-12">
+        <div
+          class="card mt-1"
+          [style.background-color]="todo.completed ? '#98f49e' : '#f47474'"
+        >
+          <div class="card-body">
+            <input
+              type="checkbox"
+              [checked]="todo.completed"
+              (change)="toggleCompleted(todo)"
+            />
+            <p class="card-title assigned-to" style="display: inline">{{ todo.todo }}</p>
+            <p class="assigned"> Assigned to: {{ getUserName(todo.userId) | async }}</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
